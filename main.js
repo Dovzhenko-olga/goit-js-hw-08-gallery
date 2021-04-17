@@ -40,8 +40,7 @@ function onImageCardClik(e) {
   window.addEventListener('keydown', onEscKeyPress);
   window.addEventListener('keydown', onArrowKeyPress)
   lightbox.classList.add('is-open');
-  lightboxImage.src = e.target.dataset.source;
-  lightboxImage.alt = e.target.alt;
+  getImageAttr(e.target.dataset.source, e.target.alt);
 }
 
 const closeBtn = document.querySelector('[data-action="close-lightbox"]');
@@ -52,12 +51,17 @@ const closeBtn = document.querySelector('[data-action="close-lightbox"]');
    window.removeEventListener('keydown', onEscKeyPress)
    window.removeEventListener('keydown', onArrowKeyPress)
    lightbox.classList.remove('is-open');
-   lightboxImage.src = '';   
+   getImageAttr('', '');   
  }
  function onEscKeyPress (e) {
    if(e.code === 'Escape') {
      closeModal();
    }
+ }
+
+ function getImageAttr (src, alt) {
+  lightboxImage.src = src;
+  lightboxImage.alt = alt;
  }
  
  function onArrowKeyPress(e) {
@@ -82,3 +86,4 @@ const closeBtn = document.querySelector('[data-action="close-lightbox"]');
    }
    lightboxImage.src = imagesSrc[newIndex];
  }
+
