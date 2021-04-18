@@ -45,7 +45,6 @@ body {
 
 .gallery__image:hover {
   transform: scale(1.03);
-  cursor: zoom-in;
 }
 
 .gallery__image {
@@ -62,6 +61,7 @@ body {
 }
 
 .gallery__link:hover {
+  cursor: zoom-in;
 }
 
 /* Lightbox */

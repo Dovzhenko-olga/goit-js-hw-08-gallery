@@ -14,29 +14,35 @@ function createGalleryCardsMarkup (images) {
   .map(({preview, original, description}) => {
     return ` 
     <li class="gallery__item">
+    <a
+    class="gallery__link"
+    href="${original}"
+    >
     <img
     class="gallery__image"
     src="${preview}"
     data-source="${original}"
-      alt="${description}"
-      />
-      </li>
-      `;
-    })
+    alt="${description}"
+    />
+    </a>
+    </li>
+    `;
+  })
     .join('');
   }
-  // <a
-  // class="gallery__link"
-  // href="${original}"
-  // >
-  // </a>
-  
+ 
+//   galleryBox.addEventListener('click', preventDef, false);
+// function preventDef(e) {
+//   // if (e.target.nodeName === "A") return;
+// }
+
 galleryBox.addEventListener('click', onImageCardClik);
 
 function onImageCardClik(e) {
   if(!e.target.classList.contains('gallery__image')) {
     return;
   }
+  e.preventDefault();
   window.addEventListener('keydown', onEscKeyPress);
   window.addEventListener('keydown', onArrowKeyPress)
   lightbox.classList.add('is-open');
@@ -65,25 +71,25 @@ const closeBtn = document.querySelector('[data-action="close-lightbox"]');
  }
  
  function onArrowKeyPress(e) {
-     const imagesSrc = [];
-     images.forEach(img => {
-         imagesSrc.push(img.original);
-        });
-   let newIndex = imagesSrc.indexOf(lightboxImage.src);
+    //  const imagesSrc = [];
+    //  images.forEach(img => {
+    //      imagesSrc.push(img.original);
+    //     });
+   let newIndex = images.findIndex(image => image.original === lightboxImage.src);
    if(newIndex < 0) {
      return;
    }
    if(e.code === 'ArrowLeft') {
       newIndex -= 1;
       if(newIndex === -1) {
-        newIndex = imagesSrc.length - 1;
+        newIndex = images.length - 1;
       }
    } else if(e.code === 'ArrowRight') {
      newIndex += 1;
-     if(newIndex === imagesSrc.length) {
+     if(newIndex === images.length) {
        newIndex = 0;
      }
    }
-   lightboxImage.src = imagesSrc[newIndex];
+   getImageAttr (images[newIndex].original, images[newIndex].description);
  }
 
